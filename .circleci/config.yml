@@ -10,9 +10,17 @@ jobs:
           command: terraform init
       - run:
           command: terraform plan
+  deploy:
+    docker:
+      - image: hashicorp/terraform
+    steps:
+      - checkout
+      - run:
+          command: terraform apply -auto-approve
 
 workflows:
   version: 2
   deploy:
     jobs:
       - plan
+      - deploy
