@@ -17,4 +17,12 @@ Learn about AWS-IaaS, CI/CD for SRE
 
 ## Usage
 
+### Credential
 
+```
+$ aws configure --profile hello-aws
+AWS Access Key ID [None]: <your access key>
+AWS Secret Access Key [None]: <your access secret >
+Default region name [None]: ap-northeast-1
+Default output format [None]: json
+```
