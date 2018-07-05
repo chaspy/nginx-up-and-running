@@ -22,7 +22,9 @@ jobs:
 
 workflows:
   version: 2
-  deploy:
+  plan_and_deploy:
     jobs:
       - plan
       - deploy
+          requires:
+            - plan
