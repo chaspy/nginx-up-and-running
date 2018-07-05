@@ -15,9 +15,9 @@ Learn about AWS-IaaS, CI/CD for SRE
 - Ansible
 - Infrataster
 
-## Usage
+## Prepare
 
-### Credential
+### Credential for aws-cli
 
 ```
 $ aws configure --profile hello-aws
@@ -26,3 +26,12 @@ AWS Secret Access Key [None]: <your access secret >
 Default region name [None]: ap-northeast-1
 Default output format [None]: json
 ```
+
+### Terraform
+
+1. create .terraform.tfvars
+2. terraform init
+3. terraform plan
+4. terraform apply (-auto-approve)
+5. terraform destroy (-auto-approve)
+
