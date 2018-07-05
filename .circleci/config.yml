@@ -25,6 +25,6 @@ workflows:
   plan_and_deploy:
     jobs:
       - plan
-      - deploy
+      - deploy:
           requires:
             - plan
