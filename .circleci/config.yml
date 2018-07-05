@@ -16,6 +16,8 @@ jobs:
     steps:
       - checkout
       - run:
+          command: terraform init
+      - run:
           command: terraform apply -auto-approve
 
 workflows:
