@@ -1,0 +1,10 @@
+version: 2
+
+jobs:
+  plan:
+    docker:
+      - image: hashicorp/terraform
+    steps:
+      - checkout
+      - run:
+          command: terraform plan
