@@ -8,3 +8,9 @@ jobs:
       - checkout
       - run:
           command: terraform plan
+
+workflows:
+  version: 2
+  deploy:
+    jobs:
+      - plan
