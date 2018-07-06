@@ -35,3 +35,8 @@ Default output format [None]: json
 4. terraform apply (-auto-approve)
 5. terraform destroy (-auto-approve)
 
+## Login instance
+
+```
+$ ssh ec2-user@<ip addr>
+```

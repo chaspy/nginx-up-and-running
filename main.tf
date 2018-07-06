@@ -11,10 +11,11 @@ terraform {
 
 variable "aws_access_key" {}
 variable "aws_secret_key" {}
+variable "public_key" {}
 variable "region" {
     default = "ap-northeast-1"
 }
- 
+
 variable "images" {
     default = {
         us-east-1 = "ami-1ecae776"
@@ -85,10 +86,16 @@ resource "aws_security_group" "admin" {
         cidr_blocks = ["0.0.0.0/0"]
     }
 }
- 
+
+resource "aws_key_pair" "auth" {
+  key_name   = "deployer-key"
+  public_key = "${var.public_key}"
+}
+
 resource "aws_instance" "web" {
     ami = "${var.images["ap-northeast-1"]}"
     instance_type = "t2.micro"
+    key_name      = "${aws_key_pair.auth.id}"
     vpc_security_group_ids = [
       "${aws_security_group.admin.id}"
     ]
