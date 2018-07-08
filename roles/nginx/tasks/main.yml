@@ -2,3 +2,5 @@
   yum:
     name: nginx
     state: latest
+- name: start Nginx
+  command: nginx
