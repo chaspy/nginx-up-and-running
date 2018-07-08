@@ -15,3 +15,4 @@ do
   fi
 done
 ansible-playbook -i hosts site.yml
+bundle exec rspec
