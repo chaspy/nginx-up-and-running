@@ -1,6 +1,8 @@
 # hello-aws
 Learn about AWS-IaaS, CI/CD for SRE
 
+[![pic](./pic/pic.png)
+
 ## Dependency
 - AWS
   - S3
