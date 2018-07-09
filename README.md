@@ -1,43 +1,47 @@
 # hello-aws
-Learn about AWS-IaaS, CI/CD for SRE
+Learn about Nginx, AWS, and CI/CD.
 
 ![pic](./pic/pic.png)
 
-## Dependency
+## Includes
 - AWS
-  - S3
   - EC2
-  - ECS
-  - Route53
-  - and AWS-CLI
 - Nginx
-- CircleCI
 - Terraform
-- Docker
 - Ansible
 - Infrataster
 
 ## Prepare
 
-### Credential for aws-cli
+### Dependency
+
+I confirm to work folloing software version.
 
 ```
-$ aws configure --profile hello-aws
-AWS Access Key ID [None]: <your access key>
-AWS Secret Access Key [None]: <your access secret >
-Default region name [None]: ap-northeast-1
-Default output format [None]: json
+$ terraform --version
+Terraform v0.11.7
++ provider.aws v1.26.0
+
+$ ansible --version
+ansible 2.3.2.0
+
+$ ruby --version
+ruby 2.5.0p0 (2017-12-25 revision 61468) [x86_64-darwin15]
 ```
 
-### Terraform
+### Configuration
 
-1. create .terraform.tfvars
-2. terraform init
-3. terraform plan
-4. terraform apply (-auto-approve)
-5. terraform destroy (-auto-approve)
+- create `.terraform.tfvars`
+- exec `terraform init`
+- exec `bundle install`
 
-## Login instance
+## Usage
+
+You can deploy and test nginx on AWS using following command.
+
+- exec `sh script/create.sh`
+
+And you can login nginx-server.
 
 ```
 $ ssh ec2-user@<ip addr>
