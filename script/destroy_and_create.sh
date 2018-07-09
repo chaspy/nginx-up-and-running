@@ -1,3 +1,4 @@
 #!/bin/bash
-sh destroy.sh
-sh create.sh
+CD=$(dirname $0)
+sh $CD/destroy.sh
+sh $CD/create.sh
