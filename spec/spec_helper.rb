@@ -4,6 +4,6 @@ require_relative 'spec_hosts'
 
 RSpec.configuration.include RSpec::JsonMatcher
 Infrataster::Server.define(
-  :proxy,           # name
+  :nginx,           # name
   $nginx_ip, # proxy VM's IP address
       )
