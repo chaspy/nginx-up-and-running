@@ -1,4 +1,4 @@
-# hello-aws
+# Nginx Up and Running
 Learn about Nginx, AWS, and CI/CD.
 
 ![pic](./pic/pic.png)
