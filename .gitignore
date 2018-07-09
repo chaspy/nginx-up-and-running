@@ -2,4 +2,5 @@ terraform.tfvars
 .terraform
 terraform.tfstate*
 hosts
+spec/spec_hosts.rb
 *.DS_Store
