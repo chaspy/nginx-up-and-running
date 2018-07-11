@@ -119,9 +119,6 @@ resource "aws_instance" "web" {
       volume_type = "gp2"
       volume_size = "100"
     }
-    tags {
-        Name = "cm-test"
-    }
 }
  
 output "public_ip_of_web" {
