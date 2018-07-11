@@ -15,7 +15,7 @@ Learn about Nginx, AWS, and CI/CD.
 
 ### Dependency
 
-I confirm to work folloing software version.
+I confirm to work following software version.
 
 ```
 $ terraform --version
