@@ -15,6 +15,9 @@ variable "public_key" {}
 variable "region" {
     default = "ap-northeast-1"
 }
+variable "availability_zone" {
+    default = "ap-northeast-1a"
+}
 
 variable "images" {
     default = {
@@ -53,7 +56,7 @@ resource "aws_internet_gateway" "myGW" {
 resource "aws_subnet" "public-a" {
     vpc_id = "${aws_vpc.myVPC.id}"
     cidr_block = "10.1.1.0/24"
-    availability_zone = "ap-northeast-1a"
+    availability_zone = "${var.availability_zone}"
 }
  
 resource "aws_route_table" "public-route" {
