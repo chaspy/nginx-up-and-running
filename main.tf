@@ -114,11 +114,6 @@ resource "aws_instance" "web" {
       volume_type = "gp2"
       volume_size = "20"
     }
-    ebs_block_device = {
-      device_name = "/dev/sdf"
-      volume_type = "gp2"
-      volume_size = "100"
-    }
 }
  
 output "public_ip_of_web" {
