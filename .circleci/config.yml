@@ -10,9 +10,18 @@ jobs:
           command: terraform init
       - run:
           command: terraform plan
-
+  deploy:
+    docker:
+      - image: williamyeh/ansible:centos7
+    steps:
+      - checkout
+      - run:
+          command: | 
+            echo "[web]\n$localhost" > hosts            
+            ansible-playbook -i localhost local.yml
 workflows:
   version: 2
   plan_and_deploy:
     jobs:
       - plan
+      - deploy
