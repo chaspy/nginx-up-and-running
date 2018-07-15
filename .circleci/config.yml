@@ -12,19 +12,16 @@ jobs:
           command: terraform plan
   deploy:
     docker:
-      - image: hashicorp/terraform
+      - image: williamyeh/ansible:centos7
     steps:
       - checkout
       - run:
-          command: terraform init
-      - run:
-          command: terraform apply -auto-approve
-
+          command: | 
+            echo "[web]\n$localhost" > hosts            
+            ansible-playbook -i localhost local.yml
 workflows:
   version: 2
   plan_and_deploy:
     jobs:
       - plan
-      - deploy:
-          requires:
-            - plan
+      - deploy

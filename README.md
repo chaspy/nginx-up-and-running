@@ -31,7 +31,16 @@ ruby 2.5.0p0 (2017-12-25 revision 61468) [x86_64-darwin15]
 
 ### Configuration
 
-- create `.terraform.tfvars`
+- input your credential
+
+```
+$ cp .secret.sample .secret
+$ vi .secret
+$ source .secret
+```
+
+You also add CircleCI as environment variables.
+
 - exec `terraform init`
 - exec `bundle install`
 
