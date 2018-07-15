@@ -1,0 +1,5 @@
+---
+
+nginx_version: 1.14.0
+nginx_src: /usr/local/src/nginx-{{ nginx_version }}
+ngx_mruby_src: /usr/local/src/ngx_mruby
