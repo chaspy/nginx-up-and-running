@@ -1,10 +1,105 @@
-- name: set repo file
-  template:
-    src: nginx.repo
-    dest: /etc/yum.repos.d/nginx.repo
-- name: install the latest version of Nginx
+- name: install dependency
   yum:
-    name: nginx
+    name: "{{ item }}"
     state: latest
-- name: start Nginx
+  with_items:
+    - git
+    - gcc
+    - pcre-devel
+    - openssl-devel
+    - libxslt-devel
+    - gd-devel
+    - perl-ExtUtils-Embed
+    - epel-release
+    - GeoIP-devel
+    - lua-devel
+    - ruby
+    - bison
+    - rake
+- name: get lua-nginx-module
+  git:
+    repo: https://github.com/openresty/lua-nginx-module.git
+    dest: /usr/local/src/lua-nginx-module
+- name: get nginx_devel_kit
+  git:
+    repo: https://github.com/simpl/ngx_devel_kit.git
+    dest: /usr/local/src/ngx_devel_kit
+- name: get ngx_mruby
+  git:
+    repo: https://github.com/matsumoto-r/ngx_mruby.git
+    dest: /usr/local/src/ngx_mruby
+    track_submodules: yes
+- name: get nginx
+  get_url:
+    url: "http://nginx.org/download/nginx-{{ nginx_version }}.tar.gz"
+    dest: /usr/local/src/nginx-{{ nginx_version }}.tar.gz
+- name: unarchive nginx
+  unarchive:
+    src: http://nginx.org/download/nginx-{{ nginx_version }}.tar.gz
+    dest: /usr/local/src
+    remote_src: yes
+- name: alternative ruby 2.4
+  command: update-alternatives --set ruby /usr/bin/ruby2.4
+  when:
+    inventory_hostname != "localhost"
+- name: configure ngx_mruby
+  command: ./configure --with-ngx-src-root={{ nginx_src }}
+  args:
+    chdir: "{{ ngx_mruby_src }}"
+- name: build mruby
+  command: make build_mruby
+  args:
+    chdir: "{{ ngx_mruby_src }}"
+- name: generate_gems_config
+  command: make generate_gems_config
+  args:
+    chdir: "{{ ngx_mruby_src }}"
+- name: build nginx
+  command: ./configure --prefix=/usr/local/nginx --sbin-path=/usr/local/nginx --add-module=/usr/local/src/lua-nginx-module --add-module=/usr/local/src/ngx_devel_kit --add-module={{ ngx_mruby_src }}
+  args:
+    chdir: "{{ nginx_src }}"
+- name: make nginx
+  command: make
+  args:
+    chdir: "{{ nginx_src }}"
+- name: make install
+  command: make install
+  args:
+    chdir: "{{ nginx_src }}"
+- name: add nginx PATH
+  lineinfile:
+    path: /etc/profile
+    state: present
+    line: 'export PATH=/usr/local/nginx/:$PATH'
+- name: set nginx.conf
+  template:
+    src: nginx.conf
+    dest: /usr/local/nginx/conf/
+- name: set fizzbuzz.rb
+  template:
+    src: fizzbuzz.rb
+    dest: /usr/local/nginx/conf/
+- name: create dir
+  file:
+    path: "{{ item }}"
+    state: directory
+  with_items:
+    - /var/www/html
+    - /var/log/nginx
+- name: copy contents
+  template:
+    src: "{{ item }}"
+    dest: /var/www/html/
+  with_items:
+    - 404.html
+    - 50x.html
+- name: create log file
+  file:
+    path: "{{ item }}"
+    state: touch
+    mode: 755
+  with_items:
+    - /var/log/nginx/www.example.com_access.log
+    - /var/log/nginx/www.example.com_error.log
+- name: run nginx
   command: nginx
