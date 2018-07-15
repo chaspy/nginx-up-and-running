@@ -1,4 +1,6 @@
 # Nginx Up and Running
+[![CircleCI](https://circleci.com/gh/chaspy/nginx-up-and-running.svg?style=shield)](https://circleci.com/gh/chaspy/nginx-up-and-running)
+
 Learn about Nginx, AWS, and CI/CD.
 
 ![pic](./pic/pic.png)
