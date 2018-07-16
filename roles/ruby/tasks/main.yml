@@ -1,0 +1,44 @@
+- name: install dependency
+  yum:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - bzip2
+    - gcc
+    - git
+    - openssl-devel
+    - readline-devel
+    - zlib-devel
+- name: get rbenv
+  git:
+    repo: https://github.com/sstephenson/rbenv.git
+    dest: ~/.rbenv
+  become_user: vagrant
+- name: get ruby-build
+  git:
+    repo: https://github.com/sstephenson/ruby-build.git
+    dest: ~/.rbenv/plugins/ruby-build
+  become_user: vagrant
+- name: add nginx PATH
+  lineinfile:
+    path: /etc/profile
+    state: present
+    line: 'export PATH=/home/vagrant/.rbenv/bin:/home/vagrant/.rbenv/shims/:$PATH'
+- name: rbenv init
+  command: echo 'eval "$(rbenv init -)"' >> /etc/profile.d/rbenv.sh && exec $SHELL -l
+- name: rbenv install
+  command: rbenv install -v 2.5.0
+  become_user: vagrant
+- name: rbenv rehash
+  command: rbenv rehash
+  become_user: vagrant
+- name: rbenv global 2.5.0
+  command: rbenv global 2.5.0
+  become_user: vagrant
+- name: gem install bundle
+  command: gem install bundle
+  become_user: vagrant
+- name: bundle install
+  command: bundle install
+  args:
+    chdir: /vagrant/
