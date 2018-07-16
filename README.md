@@ -57,3 +57,21 @@ And you can login nginx-server.
 ```
 $ ssh ec2-user@<ip addr>
 ```
+
+## Vagrant
+If you don't want to use AWS, you can work on Vagrant-VM.
+
+```
+$ vagrant up
+```
+
+You can run infrataster after this command.
+
+- in local
+
+  ```
+  $ vagrant ssh
+  $ bundle exec rspec
+  ```
+
+Also, your client machine can run the test to Vagrant-VM. Input the IP(192.168.33.100) to `spec/spec_hosts.rb`
