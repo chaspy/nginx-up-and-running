@@ -1,7 +1,7 @@
 - name: install dependency
   yum:
     name: "{{ item }}"
-    state: latest
+    state: present
   with_items:
     - git
     - gcc
@@ -10,7 +10,7 @@
     - libxslt-devel
     - gd-devel
     - perl-ExtUtils-Embed
-    - epel-release
+    - https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
     - GeoIP-devel
     - lua-devel
     - ruby
@@ -38,8 +38,8 @@
     src: http://nginx.org/download/nginx-{{ nginx_version }}.tar.gz
     dest: /usr/local/src
     remote_src: yes
-- name: alternative ruby 2.4
-  command: update-alternatives --set ruby /usr/bin/ruby2.4
+- name: use ruby 2.4
+  command: amazon-linux-extras install ruby2.4
   when:
     inventory_hostname != "localhost"
 - name: configure ngx_mruby
