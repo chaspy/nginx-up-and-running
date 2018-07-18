@@ -21,7 +21,7 @@ jobs:
             echo "\$nginx_ip=\"localhost"\" > spec/spec_hosts.rb
       - run:
           command: |
-            ansible-playbook -i localhost local.yml
+            ansible-playbook -i localhost ci.yml
             bundle exec rspec
 workflows:
   version: 2

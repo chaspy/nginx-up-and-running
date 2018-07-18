@@ -15,5 +15,5 @@ do
     sleep 3
   fi
 done
-ansible-playbook -i hosts site.yml
+ansible-playbook -i hosts aws.yml
 bundle exec rspec
