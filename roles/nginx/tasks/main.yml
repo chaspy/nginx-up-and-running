@@ -105,8 +105,14 @@
   template:
     src: nginx.service
     dest: /lib/systemd/system/nginx.service
-- name: run nginx
+- name: run nginx when aws and vagrant
   systemd:
     name: nginx
     enabled: yes
     state: started
+  when:
+    ansible_env.CIRCLECI is not defined
+- name: run nginx when circleci
+  command: nginx
+  when:
+    ansible_env.CIRCLECI is defined
