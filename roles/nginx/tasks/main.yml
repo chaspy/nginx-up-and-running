@@ -38,6 +38,7 @@
     src: http://nginx.org/download/nginx-{{ nginx_version }}.tar.gz
     dest: /usr/local/src
     remote_src: yes
+    creates: /usr/local/src/nginx-{{ nginx_version }}
 - name: use ruby 2.4
   command: amazon-linux-extras install ruby2.4
   when:
@@ -66,6 +67,7 @@
   command: make install
   args:
     chdir: "{{ nginx_src }}"
+    creates: /usr/local/nginx/nginx
 - name: add nginx PATH
   lineinfile:
     path: /etc/profile
