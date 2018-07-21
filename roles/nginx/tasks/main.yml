@@ -55,7 +55,7 @@
   args:
     chdir: "{{ ngx_mruby_src }}"
 - name: build nginx
-  command: ./configure --prefix=/usr/local/nginx --sbin-path=/usr/local/nginx --add-module=/usr/local/src/lua-nginx-module --add-module=/usr/local/src/ngx_devel_kit --add-module={{ ngx_mruby_src }}
+  command: ./configure --prefix=/usr/local/nginx --sbin-path=/usr/local/nginx --add-module=/usr/local/src/lua-nginx-module --add-module=/usr/local/src/ngx_devel_kit --add-module={{ ngx_mruby_src }} --pid-path=/var/run/nginx/nginx.pid
   args:
     chdir: "{{ nginx_src }}"
 - name: make nginx
@@ -101,5 +101,18 @@
   with_items:
     - /var/log/nginx/www.example.com_access.log
     - /var/log/nginx/www.example.com_error.log
-- name: run nginx
+- name: set service file
+  template:
+    src: nginx.service
+    dest: /lib/systemd/system/nginx.service
+- name: run nginx when aws and vagrant
+  systemd:
+    name: nginx
+    enabled: yes
+    state: started
+  when:
+    ansible_env.CIRCLECI is not defined
+- name: run nginx when circleci
   command: nginx
+  when:
+    ansible_env.CIRCLECI is defined
