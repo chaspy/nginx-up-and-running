@@ -29,6 +29,8 @@
 - name: rbenv install
   command: rbenv install -v 2.5.0
   become_user: vagrant
+  args:
+    creates: /home/vagrant/.rbenv/versions/2.5.0
 - name: rbenv rehash
   command: rbenv rehash
   become_user: vagrant
@@ -40,5 +42,6 @@
   become_user: vagrant
 - name: bundle install
   command: bundle install
+  become_user: vagrant
   args:
     chdir: /vagrant/
