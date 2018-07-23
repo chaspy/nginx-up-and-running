@@ -7,12 +7,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     n.vm.hostname = "nginx"
     n.vm.network :private_network, ip: "192.168.33.100"#, virtualbox__intnet: "intnet"
     n.vm.provision "shell", privileged: false, inline: <<-SHELL
-      echo "localhost" > /vagrant/hosts
+      echo "localhost" > /vagrant/vagrant_hosts
       echo "\\$nginx_ip=\\"localhost\\"" > /vagrant/spec/spec_hosts.rb
     SHELL
     n.vm.provision "ansible_local" do |ansible|
       ansible.playbook = "vagrant.yml"
-      ansible.inventory_path = "hosts"
+      ansible.inventory_path = "vagrant_hosts"
       ansible.limit = 'all'
     end
   end
