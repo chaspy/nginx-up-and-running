@@ -81,6 +81,10 @@
   template:
     src: fizzbuzz.rb
     dest: /usr/local/nginx/conf/
+- name: set .htpasswd
+  template:
+    src: .htpasswd
+    dest: /usr/local/nginx/conf/
 - name: create dir
   file:
     path: "{{ item }}"
