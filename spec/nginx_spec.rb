@@ -47,4 +47,10 @@ describe server(:nginx) do
       expect(response.status).to eq(403)
     end
   end
+
+  describe http('http://nginx/basicauth', basic_auth: ['admin', 'admin']) do
+    it 'returns 200' do
+      expect(response.status).to eq(200)
+    end
+  end
 end
