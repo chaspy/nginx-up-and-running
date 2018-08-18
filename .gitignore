@@ -2,6 +2,7 @@
 .terraform
 terraform.tfstate*
 hosts
+vagrant_hosts
 spec/spec_hosts.rb
 *.DS_Store
 .vagrant
